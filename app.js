@@ -90,7 +90,7 @@ wss.on('request', function(request) {
                     rows: 30
                 });
             } else {
-                term = pty.spawn('ssh', [sshuser + 'localhost', '-p', sshport], {
+                term = pty.spawn('./sshuser.pl', ['localhost', sshport], {
                     name: 'xterm-256color',
                     cols: 80,
                     rows: 30
