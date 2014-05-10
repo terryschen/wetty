@@ -5,11 +5,11 @@ var path = require('path');
 var ws = require('websocket').server;
 var pty = require('pty.js');
 var fs = require('fs');
-var waitpid = require('waitpid');
+// var waitpid = require('waitpid');
 
-process.on('SIGCHLD', function(args){
-    waitpid(-1);
-});
+// process.on('SIGCHLD', function(args){
+//     waitpid(-1);
+// });
 
 var opts = require('optimist')
     .options({
@@ -90,6 +90,8 @@ var wss = new ws({
     httpServer: httpserv
 });
 
+
+
 wss.on('request', function(request) {
     var term;
     var sshuser = '';
@@ -135,9 +137,11 @@ wss.on('request', function(request) {
         }
     });
     conn.on('error', function() {
+        console.log((new Date()) + ' Peer ' + conn.remoteAddress + ' has an error.');
         term.end();
     });
     conn.on('close', function() {
+        console.log((new Date()) + ' Peer ' + conn.remoteAddress + ' disconnected.');
         term.end();
     })
 })
